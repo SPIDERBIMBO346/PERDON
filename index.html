@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una pregunta para ti ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #ffdce9;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 15px;
+    overflow-x: hidden;
+    color: #65434e;
+}
+
+/* FONDO SNOOPY */
+
+.background {
+    position: fixed;
+    inset: 0;
+    background-color: #ffdce9;
+    background-image:
+        url('https://www.springscreative.com/cdn/shop/files/tiled_preview_square_20250805_154831.png?v=1763992642&width=2048');
+    background-size: 350px;
+    background-repeat: repeat;
+    opacity: .24;
+    z-index: -2;
+}
+
+.overlay-bg {
+    position: fixed;
+    inset: 0;
+    background: #ffeaf1;
+    opacity: .48;
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 440px;
+    background: #fff9fb;
+    border: 3px solid white;
+    border-radius: 25px;
+    padding: 25px 25px 30px;
+    text-align: center;
+    box-shadow: 0 12px 40px #bd668b35;
+    position: relative;
+    animation: entrance .8s ease;
+}
+
+@keyframes entrance {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DECORACIONES */
+
+.top-decoration {
+    color: #e88cae;
+    letter-spacing: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.main-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 17px;
+    border: 4px solid white;
+    box-shadow: 0 5px 18px #db91aa30;
+    background: #ffe1ed;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 31px;
+    color: #df759b;
+    margin: 18px 0 10px;
+    font-weight: normal;
+}
+
+.message {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #92717c;
+    margin: 0 auto;
+    max-width: 330px;
+}
+
+.small-decoration {
+    color: #e58eac;
+    margin: 20px 0;
+    font-size: 19px;
+}
+
+.question {
+    font-size: 19px;
+    font-weight: 700;
+    color: #b85c80;
+    margin: 18px 0 25px;
+}
+
+/* BOTONES */
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    min-height: 55px;
+    position: relative;
+}
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 13px 25px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.yes {
+    background: #ee91b3;
+    color: white;
+    box-shadow: 0 5px 12px #e88bad55;
+}
+
+.yes:hover {
+    background: #df719c;
+    transform: scale(1.08);
+}
+
+.no {
+    background: #fff;
+    color: #c66c8e;
+    border: 2px solid #f2c0d1;
+    position: relative;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.no:hover {
+    background: #ffe5ef;
+}
+
+.footer {
+    font-size: 11px;
+    color: #c38b9e;
+    margin-top: 30px;
+    letter-spacing: 1px;
+}
+
+/* IMAGEN INFERIOR */
+
+.bottom-image {
+    width: 105px;
+    height: 90px;
+    object-fit: contain;
+    margin-top: 20px;
+}
+
+/* CORAZONES */
+
+.heart {
+    position: fixed;
+    top: -30px;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* MODAL ERROR */
+
+.modal-bg {
+    position: fixed;
+    inset: 0;
+    background: #69424e88;
+    backdrop-filter: blur(5px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+}
+
+.modal {
+    width: 100%;
+    max-width: 350px;
+    background: #fff9fb;
+    border: 3px solid white;
+    border-radius: 22px;
+    padding: 27px;
+    text-align: center;
+    box-shadow: 0 15px 50px #773c5533;
+    animation: entrance .3s ease;
+}
+
+.modal h2 {
+    color: #d86e95;
+    font-family: 'Pacifico', cursive;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.modal p {
+    color: #92717c;
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 12px 0;
+}
+
+.error-image {
+    width: 150px;
+    height: 125px;
+    object-fit: contain;
+}
+
+.modal button {
+    margin-top: 12px;
+}
+
+/* FINAL */
+
+.final-image {
+    width: 190px;
+    height: 155px;
+    object-fit: contain;
+}
+
+@media(max-width:480px) {
+    .container {
+        padding: 20px 17px 25px;
+    }
+
+    .main-image {
+        height: 180px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .message {
+        font-size: 13px;
+    }
+
+    .question {
+        font-size: 17px;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="overlay-bg"></div>
+
+<!-- CONTENIDO PRINCIPAL -->
+
+<div class="container" id="main">
+
+    <div class="top-decoration">
+        ♡ UNA PREGUNTA ESPECIAL ♡
+    </div>
+
+    <!-- IMAGEN PRINCIPAL -->
+    <img
+        class="main-image"
+        src="https://images.teepublic.com/derived/production/designs/85858674_0/1767434825/i_p%3Ac_fac2cd%2Cbnr_1%2Cs_630%2Cq_90.jpg"
+        alt="Snoopy y su amor"
+    >
+
+    <h1>Holaaa 💗</h1>
+
+    <p class="message">
+        Quería preguntarte algo muy importante...
+        espero que tu respuesta sea la que mi
+        corazoncito está esperando.
+    </p>
+
+    <div class="small-decoration">
+        ♡ ───── ⋆˚࿔ ───── ♡
+    </div>
+
+    <div class="question">
+        ¿Me perdonas? 🥺
+    </div>
+
+    <div class="buttons">
+
+        <button class="yes" id="yesButton">
+            Sí 💖
+        </button>
+
+        <button class="no" id="noButton">
+            No 😠
+        </button>
+
+    </div>
+
+    <!-- IMAGEN DECORATIVA -->
+    <img
+        class="bottom-image"
+        src="https://toppng.com/uploads/preview/snoopy-love-png-banner-royalty-free-download-snoopy-and-woodstock-love-11563008403cpdn9znzp3.png"
+        alt="Snoopy y Woodstock"
+    >
+
+    <div class="footer">
+        HECHO CON MUCHO CARIÑO ♡
+    </div>
+
+</div>
+
+<!-- ERROR 404 -->
+
+<div class="modal-bg" id="errorModal">
+
+    <div class="modal">
+
+        <img
+            class="error-image"
+            src="https://i.etsystatic.com/64256255/r/il/220399/7718629095/il_1080xN.7718629095_cd0o.jpg"
+            alt="Snoopy y Woodstock"
+        >
+
+        <h2>System Error ❌</h2>
+
+        <p>
+            Error 404:
+            Opción "No perdonar" no encontrada
+            en la base de datos del corazón.
+
+            <br><br>
+
+            Reinicio inminente...
+        </p>
+
+        <button class="yes" onclick="closeError()">
+            Aceptar 💗
+        </button>
+
+    </div>
+
+</div>
+
+<!-- RESPUESTA SÍ -->
+
+<div class="modal-bg" id="successModal">
+
+    <div class="modal">
+
+        <img
+            class="final-image"
+            src="https://i.etsystatic.com/64256255/r/il/220399/7718629095/il_1080xN.7718629095_cd0o.jpg"
+            alt="Snoopy abrazando a Woodstock"
+        >
+
+        <h2>¡SIIII! 💗</h2>
+
+        <p>
+            Sabía que elegirías que sí.
+            <br>
+            ¡Me haces muy feliz! 🥺
+            <br><br>
+            Te mando muchos abrazos.
+            <br>
+            ♡ Te quiero amor ♡
+        </p>
+
+        <button class="yes" onclick="closeSuccess()">
+            Cerrar 💕
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+// BOTÓN NO: ESCAPA CUANDO TE ACERCAS
+
+const noButton = document.getElementById('noButton');
+
+let attempts = 0;
+let lastMove = 0;
+
+function moveNoButton() {
+
+    const now = Date.now();
+
+    if(now - lastMove < 350) return;
+
+    lastMove = now;
+    attempts++;
+
+    const buttonWidth = noButton.offsetWidth;
+    const buttonHeight = noButton.offsetHeight;
+
+    const maxX = window.innerWidth - buttonWidth - 15;
+    const maxY = window.innerHeight - buttonHeight - 15;
+
+    let x, y;
+
+    // Buscar una posición suficientemente alejada del cursor
+    const pointerX = window.lastPointerX ?? window.innerWidth / 2;
+    const pointerY = window.lastPointerY ?? window.innerHeight / 2;
+
+    let tries = 0;
+
+    do {
+        x = 15 + Math.random() * Math.max(0, maxX - 15);
+        y = 15 + Math.random() * Math.max(0, maxY - 15);
+        tries++;
+    } while (
+        Math.hypot(
+            x + buttonWidth / 2 - pointerX,
+            y + buttonHeight / 2 - pointerY
+        ) < 180 && tries < 30
+    );
+
+    noButton.style.position = 'fixed';
+    noButton.style.left = x + 'px';
+    noButton.style.top = y + 'px';
+
+    const messages = [
+        '¡Nooo! 😭',
+        '¡Atrápame! 💗',
+        'JAJAJA 😈',
+        '¡Casi! 🥺',
+        'No me pillas 💕'
+    ];
+
+    noButton.textContent =
+        messages[(attempts - 1) % messages.length];
+}
+
+// Detectar proximidad del mouse
+
+window.lastPointerX = 0;
+window.lastPointerY = 0;
+
+document.addEventListener('pointermove', e => {
+
+    if(e.pointerType !== 'mouse') return;
+
+    window.lastPointerX = e.clientX;
+    window.lastPointerY = e.clientY;
+
+    const rect = noButton.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const distance = Math.hypot(
+        e.clientX - centerX,
+        e.clientY - centerY
+    );
+
+    if(distance < 90) {
+        moveNoButton();
+    }
+
+});
+
+// En celular, al tocar el botón, muestra el error.
+// En PC, si consigues pulsarlo, también.
+
+noButton.addEventListener('click', () => {
+    document.getElementById('errorModal').style.display = 'flex';
+});
+
+// CERRAR ERROR
+
+function closeError() {
+
+    document.getElementById('errorModal').style.display = 'none';
+
+    noButton.textContent = 'No 😠';
+    noButton.style.position = 'relative';
+    noButton.style.left = '';
+    noButton.style.top = '';
+
+}
+
+// BOTÓN SÍ
+
+document.getElementById('yesButton').addEventListener('click', () => {
+
+    document.getElementById('successModal').style.display = 'flex';
+
+    for(let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 100);
+    }
+
+});
+
+function closeSuccess() {
+    document.getElementById('successModal').style.display = 'none';
+}
+
+// CORAZONES FLOTANTES
+
+function createHeart() {
+
+    const heart = document.createElement('div');
+
+    heart.className = 'heart';
+
+    const symbols = ['💗', '💕', '♡', '💖', '♥'];
+
+    heart.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+
+    const duration = 3 + Math.random() * 4;
+
+    heart.style.animationDuration = duration + 's';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), duration * 1000);
+}
+
+setInterval(createHeart, 600);
+
+</script>
+
+</body>
+</html>
